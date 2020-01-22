@@ -2,21 +2,21 @@
     {
         "email": "js@j.com",
         "pin": "1233",
-        "balance": 15000.0
+        "balance": 9999.5
     },
     {
         "email": "new@n.com",
         "pin": "2333",
-        "balance": 0.0
+        "balance": 5000.5
     },
     {
         "email": "n@m.com",
         "pin": "1234",
-        "balance": 0.0
+        "balance": 10000.0
     },
     {
         "email": "s@e.xyz",
         "pin": "3333",
-        "balance": 25000.0
+        "balance": 20000.0
     }
 ]

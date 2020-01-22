@@ -9,8 +9,6 @@ class BankApp:
             
         with open('usersdata.json', 'r') as json_file:
             self.users = json.load(json_file)
-
-        #print(self.users)
         
     def prompt(self):
         print("Welcome to Virtual Gardens Group Bank")
@@ -40,7 +38,6 @@ class BankApp:
         total_path = currentDirectory + file_name
         #check if json file exists
         if os.path.isfile(total_path) and os.access(total_path, os.R_OK):
-            print("File exists")
             with open('usersdata.json', 'r') as json_file:
                 self.users = json.load(json_file)
             email = input("Enter email: ").lower()
@@ -173,41 +170,45 @@ class BankApp:
             data = json.load(json_file)
         beneficiary = input("Enter receipient's email: ")
         # loop through list of dictionaries to check if beneficiary mail exists in the system
-
         for i in data:
             if login_email == i["email"]:
-                #sender's balance
-                sender_balance = i["balance"]
-    
-                if beneficiary in ([sub["email"] for sub in data]):
-                    transfer_amount = float(input("Enter amount to transfer: "))
-                    if transfer_amount > account_balance or account_balance <= 1000.00:
-                        print("Insufficient funds")
-                        self.deposit(login_email)
-                        #beneficiary's balance
-                    else:
-                        beneficiary_accountbalance = i["balance"]
-                        account_balance -= transfer_amount
-                        beneficiary_accountbalance += transfer_amount
-                        print(f"Beneficiary's Account Balance: {beneficiary_accountbalance}")
-                        print(f"User account balance {account_balance}")
-                        #print("Transfer Successful!\nThank you for banking with us\n")
-                        
-                        with open('usersdata.json', 'w') as json_file:
-                            json.dump(data, json_file, indent=4)
-                        self.prompt()
-                else:
-                    print("Beneficiary doesn't exist, Please check email and try again!")
-                    self.transfer(login_email)
+                #store that particular item into this variable for future use
+                sender = i
+                break
 
-            else:
-                pass
+        #so that it is assigned default value before use       
+        receiver = {}
 
+        for i in data:
+            #store the beneficiary email after finding it
+            # into this variable for future use
+            if beneficiary == i["email"]:
+                receiver = i 
+                break
 
+        if not receiver:
+            print("Beneficiary not found. Please try again.\n")
+            self.transfer(login_email)
+        else:
+            transfer_amount = float(input("Enter amount to transfer: "))
+            if transfer_amount > sender["balance"] or sender["balance"] <= 1000.0:
+                print("Insufficient funds\n Please deposit\n")
+                self.deposit(login_email)
+            else:    
+                sender["balance"] -=  transfer_amount
+                sender_balance = sender["balance"]
+
+                receiver["balance"] += transfer_amount
+                #receiver_balance = receiver["balance"]
+                
+                print("Transfer Successful!\nThank you for banking with us\n")
+                print(f"Your account balance is: ₦{sender_balance}\n")
+                                
+                
+                with open('usersdata.json', 'w') as json_file:
+                    json.dump(data, json_file, indent=4)
+
+                self.prompt()
 
 #creating an object of class
 s = BankApp()
-
-
-
-
