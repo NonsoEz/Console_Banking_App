@@ -1,0 +1,22 @@
+[
+    {
+        "email": "test@test.com",
+        "pin": "1234",
+        "balance": 0.0
+    },
+    {
+        "email": "test@test.com",
+        "pin": "1234",
+        "balance": 0.0
+    },
+    {
+        "email": "test@test.com",
+        "pin": "1234",
+        "balance": 0.0
+    },
+    {
+        "email": "test1@test.com",
+        "pin": "1234",
+        "balance": 0.0
+    }
+]

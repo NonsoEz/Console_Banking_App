@@ -5,7 +5,7 @@ Press 1: create account
 Press 2: transaction
 
 2. Create account: This should prompt you to enter an email/or unique identity, and then a password. You must check your data structure to make sure the account is 
-unique before creating the new account
+unique before creating the new account -----> DONE!
 [Hint: Ensure that your data structure caters for each users account balance, you might want to initialize this to 0.0.] -----> DONE!
 
 3. Transaction: Authenticate the user by prompting for a password, if the password is correct, user is authenticated and show the following options:
