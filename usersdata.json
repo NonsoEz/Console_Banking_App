@@ -1,12 +1,12 @@
 [
     {
-        "email": "example@gmail.com",
-        "password": "123re",
+        "email": "js@j.com",
+        "pin": "1233",
         "balance": 0.0
     },
     {
-        "email": "js@j.com",
-        "pin": "1234",
+        "email": "new@n.com",
+        "pin": "2333",
         "balance": 0.0
     }
 ]
