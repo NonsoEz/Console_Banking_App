@@ -76,7 +76,7 @@ class BankApp:
 
                     # get new user balance
                     bal = user["balance"]
-                    print(f"Account created successfully! Your account balance is: N{bal}")
+                    print(f"Account created successfully! Your account balance is: ₦{bal}")
                     self.prompt()
             else:
                 print("Email is not valid, Please try again")
@@ -100,72 +100,113 @@ class BankApp:
                     transaction_prompt = int(input("Press 1: Check Balance \nPress 2: Deposit \nPress 3: Withdraw \nPress 4: Transfer \n>> " ))
                     # display actions to perform
                     if transaction_prompt == 1:
-                        print("It reached here") 
                         self.check_balance(login_email)
-                    """elif transaction_prompt == 2:
-                        return self.deposit(login_email, login_pin)
+                    elif transaction_prompt == 2:
+                        return self.deposit(login_email)
                     elif transaction_prompt == 3:
-                        return self.withdraw(login_email, login_pin)
+                        return self.withdraw(login_email)
                     elif transaction_prompt == 4:
-                        return self.transfer(login_email, login_pin)
+                        return self.transfer(login_email)
                     else:
-                        print("Invalid entry. Please try again")
-                        self.transaction()"""
+                        print("\nInvalid entry. Please try again\n")
+                        self.transaction()
                 else:
-                    print("Email or pin is incorrect. Try again.")
+                    print("\nEmail or pin is incorrect. Try again.")
                     self.prompt()
                 
 
     def check_balance(self, login_email):
-            print(f"Your balance is: N{self.account_balance}")
-            return self.transaction()
-        
+        #opens file for reading
+        with open('usersdata.json', 'r') as json_file:
+            data = json.load(json_file)
+        for i in data:
+            if login_email == i["email"]:
+                account_balance = i["balance"]
+                print(f"Your balance is ₦{account_balance}\n")
+                return self.transaction()
+            else:
+                pass
+
+
+    def deposit(self, login_email):
+        #opens file for reading and writing
+        with open('usersdata.json', 'r') as json_file:
+            data = json.load(json_file)
+        #get deposit amount
+        deposit_amount = float(input("Enter amount to deposit: "))
+        for i in data:
+            if login_email == i["email"]:
+                i["balance"] += deposit_amount
+                new_balance = i["balance"]
+                with open('usersdata.json', 'w') as json_file:
+                    json.dump(data, json_file, indent=4)
+        print(f"\nTransaction successful! \nYour new account balance is ₦{new_balance}")
+        print("\nThanks for banking with us!\n")
+        return self.transaction()
+
+
+    def withdraw(self, login_email):
+        #opens file for reading and writing
+        with open('usersdata.json', 'r') as json_file:
+            data = json.load(json_file)
+        #get amount for withdrawal
+        withdraw_amount = float(input("Enter amount for withdrawal: "))
+        for i in data:
+            if login_email == i["email"]:
+                balance = i["balance"]
+                if withdraw_amount > balance or balance <= 1000.0:
+                    print("Insufficient funds\n Please deposit required amount\n")
+                    return self.deposit(login_email)
+                else:
+                    i["balance"] -= withdraw_amount
+                    new_balance = i["balance"]
+                    with open('usersdata.json', 'w') as json_file:
+                        json.dump(data, json_file, indent=4)
+                    print(f"\nYou have successfully withdrawn ₦{withdraw_amount} \nYour balance is ₦{new_balance}\n")
+                    print("\nThanks for banking with us!\n")
+                    self.prompt()
+
+    
+    def transfer(self, login_email):
+        #opens file for reading and writing
+        with open('usersdata.json', 'r') as json_file:
+            data = json.load(json_file)
+        beneficiary = input("Enter receipient's email: ")
+        # loop through list of dictionaries to check if beneficiary mail exists in the system
+
+        for i in data:
+            if login_email == i["email"]:
+                #sender's balance
+                sender_balance = i["balance"]
+    
+                if beneficiary in ([sub["email"] for sub in data]):
+                    transfer_amount = float(input("Enter amount to transfer: "))
+                    if transfer_amount > account_balance or account_balance <= 1000.00:
+                        print("Insufficient funds")
+                        self.deposit(login_email)
+                        #beneficiary's balance
+                    else:
+                        beneficiary_accountbalance = i["balance"]
+                        account_balance -= transfer_amount
+                        beneficiary_accountbalance += transfer_amount
+                        print(f"Beneficiary's Account Balance: {beneficiary_accountbalance}")
+                        print(f"User account balance {account_balance}")
+                        #print("Transfer Successful!\nThank you for banking with us\n")
+                        
+                        with open('usersdata.json', 'w') as json_file:
+                            json.dump(data, json_file, indent=4)
+                        self.prompt()
+                else:
+                    print("Beneficiary doesn't exist, Please check email and try again!")
+                    self.transfer(login_email)
+
+            else:
+                pass
+
+
 
 #creating an object of class
 s = BankApp()
-    
-#calling functions with that class object
-"""s.prompt()
-s.create_user()"""
-
-
-
-
-
-
-"""def deposit(self):
-    global account_balance
-    deposit_amount = float(input("Enter amount to deposit: "))
-    account_balance += deposit_amount
-    print(f"Transaction successful! \nYour new account balance is N{account_balance}")
-    print("Thanks for banking with us!")
-    return self.transaction()
-
-
-def withdraw(self):
-    global account_balance
-    withdraw_amount = int(input("Enter amount for withdrawal: "))
-    if withdraw_amount > account_balance or account_balance <= 1000.0:
-        print("Insufficient funds")
-        return self.deposit()
-    else:
-        account_balance -= withdraw_amount
-        print(f"You have successfully withdrawn {withdraw_amount} \nYour balance is {account_balance}")
-
-
-def transfer(self):
-    global account_balance
-    receipient = input("Enter receipient's email: ")
-    transfer_amount = int(input("Enter amount for transfer: "))
-    if transfer_amount > account_balance or account_balance <= 1000.00:
-        print("Insufficient funds")
-        return self.deposit()
-    elif receipient not in users:
-        print("Invalid User")
-        #return receipient = input("Enter receipient's email: ")
-    else:
-        pass"""
-
 
 
 

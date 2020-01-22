@@ -1,23 +1,23 @@
 Build a command-line Banking Application with the following functionalities:
-1. Application starts with a prompt to the user with the following options:
+1. Application starts with a prompt to the user with the following options: ----> DONE!
 
-Press 1: create account
-Press 2: transaction
+Press 1: create account ----> DONE!
+Press 2: transaction ----> ALL DONE!
 
 2. Create account: This should prompt you to enter an email/or unique identity, and then a password. You must check your data structure to make sure the account is 
 unique before creating the new account -----> DONE!
 [Hint: Ensure that your data structure caters for each users account balance, you might want to initialize this to 0.0.] -----> DONE!
 
-3. Transaction: Authenticate the user by prompting for a password, if the password is correct, user is authenticated and show the following options:
-Press 1: check balance
-Press 2: deposit
+3. Transaction: Authenticate the user by prompting for a password, if the password is correct, user is authenticated and show the following options:----> DONE!
+Press 1: check balance ----> DONE!
+Press 2: deposit ----> DONE!
 Press 3: withdraw
 Press 4: transfer
-if the password is incorrect, tell the user that they are not authorized and go back to the create account option
+if the password is incorrect, tell the user that they are not authorized and go back to the create account option ----> DONE!
 
-4. check balance: query your data structure to check the balance of the authenticated user
+4. check balance: query your data structure to check the balance of the authenticated user ----> DONE!
 
-5. deposit: prompt the user to enter an amount, then add the amount to the users balance
+5. deposit: prompt the user to enter an amount, then add the amount to the users balance ----> DONE!
 
 6. withdraw: prompt the user to enter an amount. If the user does not have money in their account, tell them to deposit and move to the deposit prompt. 
 If the user has money but is not up to amount for withdrawal, tell user to deposit enough money. 
@@ -27,3 +27,5 @@ If the user has enough money, print out the amount withdrawn and the available b
 add the amount to the beneficiaries account,
 
 Ensure that you clog all the gaps for those process flows that I have not explicitly defined
+
+Exceptions handlers for all inputs
